@@ -1,0 +1,73 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica,
+    Arial, sans-serif;
+  background: black;
+  margin: 0;
+  padding-top: 0;
+  font-size: 17px;
+}
+
+button {
+  margin-top: 10px;
+  border: none;
+  background-color: rgba(51, 51, 51, 1);
+  color: white;
+  padding: 12px 5px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+/* ****************************** Titlebar ********************************** */
+
+#titlebar {
+  margin: 0;
+  display: flex;
+  user-select: none;
+  -webkit-app-region: drag;
+  text-align: center;
+  position: fixed;
+  background: rgb(36, 36, 36);
+  width: 100%;
+  height: 25px;
+  justify-content: center;
+  line-height: 0.7;
+  font-size: 14px;
+}
+
+
+#window-controls {
+  -webkit-app-region: none;
+  
+  display: grid;
+  grid-template-columns: repeat(4, 46px);
+  position: absolute;
+
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+
+
+#window-controls .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#max-button:hover, #min-button:hover, #restore-button:hover {
+  cursor: pointer;
+  background-color: rgb(56, 56, 56)
+}
+
+#close-button:hover {
+  cursor: pointer;
+  background-color: rgb(156, 0, 0);
+}
+
+#root {
+  padding: 30px;
+  padding-top: 40px;
+
+}

@@ -1,0 +1,35 @@
+.title-bar {
+    display: flex;
+    user-select: none;
+    -webkit-app-region: drag;
+    text-align: center;
+    position: fixed;
+    background: rgb(36, 36, 36);
+    width: 100%;
+}
+
+
+#window-control-btns {
+    top: 33px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#window-control-btns button {
+    margin: 0;
+    padding: 12px;
+}
+
+.window-control-btn {
+    height: 10px;
+    cursor: pointer;
+}
+
+.window-control-btn:hover {
+    background-color: rgb(221, 221, 221);
+}
+
+#close-window-btn:hover {
+    background-color: rgb(156, 0, 0);
+}

@@ -1,0 +1,15 @@
+.wallpaper-browser {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(177px, 1fr));
+  gap: 10px;
+
+  border: 1px solid white;
+  padding: 30px;
+  justify-content: space-between;
+}
+
+
+.wallpaper {
+    width: 177px;
+    height: 100px;
+}
