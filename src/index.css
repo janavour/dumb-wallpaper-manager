@@ -39,7 +39,7 @@ button {
   -webkit-app-region: none;
   
   display: grid;
-  grid-template-columns: repeat(4, 46px);
+  grid-template-columns: repeat(3, 46px);
   position: absolute;
 
   top: 0;

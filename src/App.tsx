@@ -6,6 +6,8 @@ import "./App.css"
 const reactContainer = document.getElementById("root")
 
 document.getElementById('close-button').onclick = window.close
+document.getElementById('max-button').onclick = window.myAPI.maximizeOrRestore
+document.getElementById('min-button').onclick = window.myAPI.minimize
 
 
 const root = createRoot(reactContainer)

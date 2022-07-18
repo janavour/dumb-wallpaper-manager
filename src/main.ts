@@ -13,8 +13,10 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
+let mainWindow: BrowserWindow
+
 const createWindow = (): void => {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     height: 700,
     width: 1000,
     webPreferences: {
@@ -22,15 +24,20 @@ const createWindow = (): void => {
       webSecurity: false
     },
     frame: false,
-  });
+  })
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 };
 
 app.on('ready', () => {
   ipcMain.on('open-browser-window', handleOpenBrowserWindow)
+  ipcMain.on('minimize', () => mainWindow.minimize())
+  ipcMain.on('maximize-or-restore', () => {
+    mainWindow.isMaximized() ? mainWindow.restore() : mainWindow.maximize()
+  })
   ipcMain.handle('get-picture-list', handleGetPictureList)
   ipcMain.handle('get-pictures-path', handleGetPicturesPath)
+
   createWindow()
 })
 
