@@ -7,8 +7,8 @@ export default async function WallpaperBrowser() {
 
     const pictureList = await window.myAPI.getPictureList()
 
-    const pics = pictureList.map((path: string) => {
-        return <img className="wallpaper" src={wallpapersPath + path}></img>
+    const pics = pictureList.map((path: string, index: number) => {
+        return <img key={`${index}`} className="wallpaper" src={wallpapersPath + path}></img>
     })
 
 

@@ -62,6 +62,7 @@ function handleOpenBrowserWindow(event: any, url: string) {
   const win = new BrowserWindow({
     height: 700,
     width: 1000,
+    autoHideMenuBar: true,
     // webPreferences: {
       // preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     // },
@@ -70,7 +71,7 @@ function handleOpenBrowserWindow(event: any, url: string) {
 
   win.webContents.session.on('will-download', (event, item, webContents) => {
     console.log(item.getFilename(), app.getPath('pictures'))
-    item.setSavePath(app.getPath('pictures') + '/wallpaper-manager/' + item.getFilename())
+    item.setSavePath(app.getPath('pictures') + '\\Wallpapers\\' + item.getFilename())
 
     item.on('updated', (event, state) => {
       if (state === 'interrupted') {
@@ -92,14 +93,15 @@ function handleOpenBrowserWindow(event: any, url: string) {
     })
   })
 
+  win.once('close', () => {
+    mainWindow.reload()
+  })
+
   win.loadURL(url);
 }
 
 function handleGetPictureList() {
   return fs.readdirSync(app.getPath('pictures') + '/wallpapers/')
-  // fs.readdir(app.getPath('pictures') + '/wallpapers/', (err: any, files: string[]) => {
-    // return files
-  // })
 }
 
 function handleGetPicturesPath() {

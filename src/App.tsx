@@ -18,7 +18,10 @@ WallpaperBrowser().then((val: any) => {
     root.render(
         <>
         { wallpaperBrowser }
-        <button>Download new wallpapers</button>
+        <button id="download-new-wallpapers-btn" 
+        onClick={() => {
+            window.myAPI.openBrowserWindow('https://www.unsplash.com/wallpapers')
+        }}>Download new wallpapers</button>
 
         <div className="hor">
             <span>Change wallpaper every</span>

@@ -6,6 +6,8 @@
   border: 1px solid white;
   padding: 30px;
   justify-content: space-between;
+  max-height: 450px;
+  overflow: auto;
 }
 
 
