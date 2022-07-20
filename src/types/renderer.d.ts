@@ -4,6 +4,7 @@ export interface IMyAPI {
     getPicturesPath: () => Promise,
     minimize: () => void,
     maximize: () => void,
+    setWallpaperChangeTime: () => void,
 }
 
 declare global {

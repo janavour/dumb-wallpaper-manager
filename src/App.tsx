@@ -25,9 +25,18 @@ WallpaperBrowser().then((val: any) => {
 
         <div className="hor">
             <span>Change wallpaper every</span>
-            <select>
-                <option>10 min</option>
-            </select>
+            <div className="select">
+                <select id="time-select" className="standard-select">
+                    <option value={5}>5 sec</option>
+                    <option value={10 * 60}>10 min</option>
+                    <option value={15 * 60}>15 min</option>
+                    <option value={30 * 60}>30 min</option>
+                    <option value={60 * 60}>1 h</option>
+                    <option value={3 * 60 * 60}>3 h</option>
+                    <option value={6 * 60 * 60}>6 h</option>
+                </select>
+            </div>
+
         </div>
 
         <div className="hor">
@@ -43,7 +52,10 @@ WallpaperBrowser().then((val: any) => {
             </div>
         </div>
 
-        <button>Apply</button>
+        <button onClick={() => {
+            const el = document.getElementById('time-select') as HTMLSelectElement
+            window.myAPI.setWallpaperChangeTime(el.value)
+        }}>Apply</button>
         </>
     )
 })
