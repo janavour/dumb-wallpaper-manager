@@ -1,7 +1,7 @@
 export interface IMyAPI {
     openBrowserWindow: (url: string) => void,
     getPictureList: () => Promise,
-    getPicturesPath: () => Promise,
+    getWallpapersPath: () => Promise,
     minimize: () => void,
     maximize: () => void,
     setWallpaperChangeTime: () => void,

@@ -3,7 +3,8 @@ import "./WallpaperBrowser.css"
 
 
 export default async function WallpaperBrowser() {
-    const wallpapersPath = await window.myAPI.getPicturesPath() + '/Wallpapers/'
+    console.log(await window.myAPI.getWallpapersPath())
+    const wallpapersPath = 'file:///' + await window.myAPI.getWallpapersPath()
 
     const pictureList = await window.myAPI.getPictureList()
 
