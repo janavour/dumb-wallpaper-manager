@@ -17,7 +17,11 @@ WallpaperBrowser().then((val: any) => {
     
     root.render(
         <>
-        { wallpaperBrowser }
+        <fieldset>
+            <legend>Downloaded wallpapers</legend>
+            { wallpaperBrowser }
+        </fieldset>
+        
         <button id="download-new-wallpapers-btn" 
         onClick={() => {
             window.myAPI.openBrowserWindow('https://www.unsplash.com/wallpapers')
