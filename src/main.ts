@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, webContents } from 'electron'
+import { app, BrowserWindow, ipcMain, Menu, Tray } from 'electron'
 import { setWallpaper } from 'wallpaper'
 
 const fs = require('fs')
@@ -21,17 +21,22 @@ let wallpaperChangeTime: number // In seconds
 let randomOrder: boolean
 
 let wallpaperInterval: NodeJS.Timer
+let tray: Tray
 
 
 const createWindow = (): void => {
+  if (tray !== undefined && !tray.isDestroyed()) {
+    tray.destroy()
+  }
   mainWindow = new BrowserWindow({
     height: 700,
     width: 1000,
+    frame: false,
+    icon: './src/icons/icon.png',
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       webSecurity: false
     },
-    frame: false,
   })
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
@@ -58,10 +63,27 @@ app.on('ready', () => {
   createWindow()
 })
 
+function createTrayIcon() {
+  tray = new Tray('./src/icons/icon.png')
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Open app', type: 'normal', click: (menuItem, browserWindow, event) => {
+      createWindow()
+    }},
+    { label: 'Next wallpaper', type: 'normal', click: (menuItem, browserWindow, event) => {
+      //
+    } },
+    { label: 'Quit', type: 'normal', click: (menuItem, browserWindow, event) => {
+      app.quit()
+    }},
+  ])
+  tray.setToolTip('Wallpaper Manager')
+  tray.setContextMenu(contextMenu)
+  tray.on('click', (event, bounds, position) => createWindow())
+  // tray.displayBalloon({title: 'Just in case you didn\'t know', content: 'The app now is in tray.'})
+}
+
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  createTrayIcon()
 })
 
 app.on('activate', () => {
@@ -127,7 +149,6 @@ function handleGetPictureList() {
   }
 
   return fs.readdirSync(wallpapersPath)
-  
 }
 
 function getWallpapersPath() {
@@ -148,7 +169,6 @@ function setRandomWallpaper() {
   } else {
     setWallpaper(targetWallpaperPath)
   }
-  
 }
 
 function getRandomInt(min: number, max: number) {
