@@ -41,6 +41,7 @@ WallpaperBrowser().then((val: any) => {
 
         <div className="hor">
             <span>Change wallpapers in random order</span>
+            <input id="random-order-checkbox" type="checkbox"></input>
         </div>
 
         <div className="hor">
@@ -53,8 +54,12 @@ WallpaperBrowser().then((val: any) => {
         </div>
 
         <button onClick={() => {
-            const el = document.getElementById('time-select') as HTMLSelectElement
-            window.myAPI.setWallpaperChangeTime(el.value)
+            const timeSelectEl = document.getElementById('time-select') as HTMLSelectElement
+            const randomOrderEl = document.getElementById('random-order-checkbox') as HTMLInputElement
+            window.myAPI.setSettings({
+                wallpaperChangeTime: parseInt(timeSelectEl.value),
+                randomOrder: randomOrderEl.checked,
+            })
         }}>Apply</button>
         </>
     )

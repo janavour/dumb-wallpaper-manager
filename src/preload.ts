@@ -6,5 +6,5 @@ contextBridge.exposeInMainWorld('myAPI', {
     getWallpapersPath: () => ipcRenderer.invoke('get-wallpapers-path'),
     minimize: () => ipcRenderer.send('minimize'),
     maximizeOrRestore: () => ipcRenderer.send('maximize-or-restore'),
-    setWallpaperChangeTime: (time: number) => ipcRenderer.send('set-wallpaper-change-time', time)
+    setSettings: (settings: object) => ipcRenderer.send('set-settings', settings)
 })

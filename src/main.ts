@@ -19,6 +19,7 @@ if (require('electron-squirrel-startup')) {
 let mainWindow: BrowserWindow
 let wallpaperChangeTime: number // In seconds
 let randomOrder: boolean
+let currentWallpaperIndex = 0
 
 let wallpaperInterval: NodeJS.Timer
 let tray: Tray
@@ -48,16 +49,18 @@ app.on('ready', () => {
   ipcMain.on('maximize-or-restore', () => {
     mainWindow.isMaximized() ? mainWindow.restore() : mainWindow.maximize()
   })
-  ipcMain.on('set-wallpaper-change-time', (event: any, time: number) => {
-    wallpaperChangeTime = time
+  ipcMain.on('set-settings', (event: any, settings: Settings) => {
+    wallpaperChangeTime = settings.wallpaperChangeTime
     clearInterval(wallpaperInterval)
-    wallpaperInterval = setInterval(setRandomWallpaper, wallpaperChangeTime * 1000)
+    wallpaperInterval = setInterval(setNewWallpaper, wallpaperChangeTime * 1000)
+
+    randomOrder = settings.randomOrder
   })
   ipcMain.handle('get-picture-list', handleGetPictureList)
   ipcMain.handle('get-wallpapers-path', getWallpapersPath)
 
   if (wallpaperChangeTime !== undefined) {
-    wallpaperInterval = setInterval(setRandomWallpaper, wallpaperChangeTime * 1000)
+    wallpaperInterval = setInterval(setNewWallpaper, wallpaperChangeTime * 1000)
   }
 
   createWindow()
@@ -70,7 +73,7 @@ function createTrayIcon() {
       createWindow()
     }},
     { label: 'Next wallpaper', type: 'normal', click: (menuItem, browserWindow, event) => {
-      //
+      setNewWallpaper()
     } },
     { label: 'Quit', type: 'normal', click: (menuItem, browserWindow, event) => {
       app.quit()
@@ -159,9 +162,18 @@ function getWallpapersPath() {
 
 /************************ UTILS ************************/
 
-function setRandomWallpaper() {
+function setNewWallpaper() {
   const pictureList = handleGetPictureList()
-  const selectedIndex = getRandomInt(0, pictureList.length)
+  
+  let selectedIndex: number
+  if (randomOrder) {
+    selectedIndex = getRandomInt(0, pictureList.length)
+  } else {
+    selectedIndex = ++currentWallpaperIndex
+    if (selectedIndex >= pictureList.length) {
+      selectedIndex = 0
+    }
+  }
   const targetWallpaperPath = getWallpapersPath() + pictureList[selectedIndex]
 
   if (process.platform == 'linux' && execSync('echo $XDG_CURRENT_DESKTOP').includes('XFCE')) {

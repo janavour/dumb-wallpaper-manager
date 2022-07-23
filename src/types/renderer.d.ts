@@ -3,8 +3,8 @@ export interface IMyAPI {
     getPictureList: () => Promise,
     getWallpapersPath: () => Promise,
     minimize: () => void,
-    maximize: () => void,
-    setWallpaperChangeTime: () => void,
+    maximizeOrRestore: () => void,
+    setSettings: (settings: Settings) => void,
 }
 
 declare global {
