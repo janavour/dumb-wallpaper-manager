@@ -1,6 +1,9 @@
 # Description
 Hello! This app allows user to download and apply wallpapers easily without any difficulties.
 
+# Download
+https://github.com/janavour/dumb-wallpaper-manager/releases
+
 # Development
 Please use yarn for this project
 
