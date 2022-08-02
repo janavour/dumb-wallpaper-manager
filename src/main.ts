@@ -67,7 +67,7 @@ app.on('ready', () => {
 })
 
 function createTrayIcon() {
-  tray = new Tray('./src/icons/icon.png')
+  tray = new Tray('./resources/icons/icon.ico') // Don't forge to put the icon into root dir
   const contextMenu = Menu.buildFromTemplate([
     { label: 'Open app', type: 'normal', click: (menuItem, browserWindow, event) => {
       createWindow()

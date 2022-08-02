@@ -19,18 +19,17 @@
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "./src/icons/icon.ico",
+        "extraResource": "src/icons/"
+      },
       "makers": [
         {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "wm"
-          }
-        },
-        {
           "name": "@electron-forge/maker-zip",
+          "icon": "./src/icon.ico",
           "platforms": [
-            "darwin"
+            "darwin",
+            "win32"
           ]
         },
         {
