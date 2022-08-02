@@ -32,6 +32,9 @@ WallpaperBrowser().then((val: any) => {
             <div className="select">
                 <select id="time-select" className="standard-select">
                     <option value={5}>5 sec</option>
+                    <option value={60}>1 min</option>
+                    <option value={3 * 60}>3 min</option>
+                    <option value={5 * 60}>5 min</option>
                     <option value={10 * 60}>10 min</option>
                     <option value={15 * 60}>15 min</option>
                     <option value={30 * 60}>30 min</option>
