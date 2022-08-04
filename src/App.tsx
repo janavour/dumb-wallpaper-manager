@@ -51,15 +51,6 @@ WallpaperBrowser().then((val: any) => {
             <input id="random-order-checkbox" type="checkbox"></input>
         </div>
 
-        <div className="hor">
-            <span>Select wallpaper position</span>
-            <div className="select">
-                <select className="standard-select">
-                    <option value="fill">Fill</option>
-                </select>
-            </div>
-        </div>
-
         <button onClick={() => {
             const timeSelectEl = document.getElementById('time-select') as HTMLSelectElement
             const randomOrderEl = document.getElementById('random-order-checkbox') as HTMLInputElement
