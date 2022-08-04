@@ -67,7 +67,12 @@ app.on('ready', () => {
 })
 
 function createTrayIcon() {
-  tray = new Tray('./resources/icons/icon.ico') // Don't forge to put the icon into root dir
+  let trayIconPath = './resources/icons/icon.ico'  // Prod mode
+  if (!fs.existsSync('./resources/icons/icon.ico')) {  // Dev mode
+    trayIconPath = './src/icons/icon.ico'
+  }
+
+  tray = new Tray(trayIconPath) // Don't forge to put the icon into root dir
   const contextMenu = Menu.buildFromTemplate([
     { label: 'Open app', type: 'normal', click: (menuItem, browserWindow, event) => {
       createWindow()
@@ -114,7 +119,7 @@ function handleOpenBrowserWindow(event: any, url: string) {
 
   win.webContents.session.on('will-download', (event, item, webContents) => {
     console.log(item.getFilename(), app.getPath('pictures'))
-    
+
     item.setSavePath(getWallpapersPath() + item.getFilename())
 
     item.on('updated', (event, state) => {
@@ -155,7 +160,7 @@ function handleGetPictureList() {
 }
 
 function getWallpapersPath() {
-  if (process.platform === 'win32') 
+  if (process.platform === 'win32')
     return app.getPath('pictures') + '\\Wallpapers\\'
   return app.getPath('pictures') + '/Wallpapers/'
 }
@@ -164,7 +169,7 @@ function getWallpapersPath() {
 
 function setNewWallpaper() {
   const pictureList = handleGetPictureList()
-  
+
   let selectedIndex: number
   if (randomOrder) {
     selectedIndex = getRandomInt(0, pictureList.length)
