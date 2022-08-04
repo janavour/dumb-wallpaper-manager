@@ -50,6 +50,8 @@ app.on('ready', () => {
     mainWindow.isMaximized() ? mainWindow.restore() : mainWindow.maximize()
   })
   ipcMain.on('set-settings', (event: any, settings: Settings) => {
+    setNewWallpaper()
+
     wallpaperChangeTime = settings.wallpaperChangeTime
     clearInterval(wallpaperInterval)
     wallpaperInterval = setInterval(setNewWallpaper, wallpaperChangeTime * 1000)
