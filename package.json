@@ -1,8 +1,8 @@
 {
-  "name": "wm",
-  "productName": "wm",
+  "name": "DumbWallpaperManager",
+  "productName": "DumbWallpaperManager",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Dumb Wallpaper Manager",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
