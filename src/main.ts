@@ -19,7 +19,7 @@ if (require('electron-squirrel-startup')) {
 let mainWindow: BrowserWindow
 let wallpaperChangeTime: number // In seconds
 let randomOrder: boolean
-let currentWallpaperIndex = 0
+let prevWallpaperIndex = -1
 
 let wallpaperInterval: NodeJS.Timer
 let tray: Tray
@@ -175,12 +175,17 @@ function setNewWallpaper() {
   let selectedIndex: number
   if (randomOrder) {
     selectedIndex = getRandomInt(0, pictureList.length)
+    while (selectedIndex === prevWallpaperIndex) {
+      selectedIndex = getRandomInt(0, pictureList.length)
+    }
   } else {
-    selectedIndex = ++currentWallpaperIndex
+    selectedIndex = ++prevWallpaperIndex
     if (selectedIndex >= pictureList.length) {
+      prevWallpaperIndex = 0
       selectedIndex = 0
     }
-  }
+}
+
   const targetWallpaperPath = getWallpapersPath() + pictureList[selectedIndex]
 
   if (process.platform == 'linux' && execSync('echo $XDG_CURRENT_DESKTOP').includes('XFCE')) {
